@@ -1,7 +1,7 @@
-const token = ''
-const url = ''
-let org = ''
-let bucket = ''
+const token = process.env.INFLUXDB_TOKEN
+const url = process.env.INFLUXDB_URL
+const org = process.env.INFLUXDB_ORG
+const bucket = process.env.INFLUXDB_BUCKET
 
 const express = require('express');
 const {InfluxDB, Point} = require('@influxdata/influxdb-client')

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  infuxdb-allnet-connector:
+    image: infuxdb-allnet-connector
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: infuxdb-allnet-connector
+    restart: unless-stopped
+    ports:
+      - 8080:3000
+    environment:
+      - TZ=Europe/Berlin
+      - INFLUXDB_URL=http://influxdb:8086
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_ORG=org
+      - INFLUXDB_BUCKET=allnet
+    depends_on:
+      - influxdb
+  
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - 8086:8086
+    environment:
+      - TZ=Europe/Berlin
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFUXDB_USERNAME}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=org
+      - DOCKER_INFLUXDB_INIT_BUCKET=allnet
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb2
+      - ./influxdb/config:/etc/influxdb2
+      
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      - TZ=Europe/Berlin
