@@ -28,6 +28,8 @@ app.post('/', (req, res) => {
             const point = new Point(sensor.name).floatField('value', parseFloat(sensor.value));
             writeClient.writePoint(point);
         });
+        
+        console.log("Data written to InfluxDB");
     });
 });
 

@@ -18,13 +18,12 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 4,
     "links": [],
     "panels": [
         {
             "datasource": {
                 "type": "influxdb",
-                "uid": "f607742f-31b6-4340-8557-c7b2d0770e0a"
+                "uid": "${datenbank}"
             },
             "fieldConfig": {
                 "defaults": {
@@ -105,9 +104,9 @@
                 {
                     "datasource": {
                         "type": "influxdb",
-                        "uid": "f607742f-31b6-4340-8557-c7b2d0770e0a"
+                        "uid": "${datenbank}"
                     },
-                    "query": "from(bucket: \"allnet\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sId_107\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+                    "query": "from(bucket: \"allnet\")\r\n |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"sId_107\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
                     "refId": "A"
                 }
             ],
@@ -118,7 +117,27 @@
     "schemaVersion": 39,
     "tags": [],
     "templating": {
-        "list": []
+        "list": [
+            {
+                "current": {
+                    "selected": true,
+                    "text": "InfluxDB",
+                    "value": "P951FEA4DE68E13C5"
+                },
+                "hide": 0,
+                "includeAll": false,
+                "label": "Datenbank",
+                "multi": false,
+                "name": "datenbank",
+                "options": [],
+                "query": "influxdb",
+                "queryValue": "",
+                "refresh": 1,
+                "regex": "",
+                "skipUrlSync": false,
+                "type": "datasource"
+            }
+        ]
     },
     "time": {
         "from": "now-6h",
@@ -129,6 +148,6 @@
     "timezone": "browser",
     "title": "Allnet",
     "uid": "bdnqkz6ow70u8a",
-    "version": 1,
+    "version": 2,
     "weekStart": ""
 }
