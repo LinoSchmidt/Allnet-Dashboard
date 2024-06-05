@@ -1,4 +1,6 @@
-# influxdb-allnet-connector
+# Allnet Dashboard
+
+Allnet Grafana Dashboard using InfluxDB as the Database.
 
 ## Usage
 
